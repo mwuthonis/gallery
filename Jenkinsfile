@@ -37,6 +37,18 @@ pipeline {
                 // sh 'curl -X POST "$RENDER_HOOK"'
             }
         }
+        stage('Push Changes') {
+            steps {
+                sh """
+                git config --global user.email "muthonishelmith136@gmail.com"
+                git config --global user.name "mwuthonis"
+                git add .
+                git commit -m "Update from Jenkins" || true
+                git push origin main
+                """
+            }
+        }
+
     }
 
     post {
