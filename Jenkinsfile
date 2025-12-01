@@ -44,7 +44,7 @@ pipeline {
                 git config --global user.name "mwuthonis"
                 git add .
                 git commit -m "Update from Jenkins" || true
-                git push origin main
+                git push origin master
                 """
             }
         }
