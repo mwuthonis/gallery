@@ -1,11 +1,14 @@
 pipeline {
     agent any
 
+    tools {
+    nodejs "NodeJS"
+    }
+
     stages {
-        stage('Get Code') {
+        stage('Checkout') {
             steps {
-                
-                checkout scm
+                git branch: 'main', url: 'https://github.com/mwuthonis/gallery.git'
             }
         }
 
@@ -18,6 +21,12 @@ pipeline {
         stage('Build Project') {
             steps {
                 sh 'npm run build || echo "No build step defined"'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo "No tests yet, skipping"
             }
         }
 
