@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-        docker { image 'node:lts' }
-    }
+    agent any
 
     triggers {
         pollSCM('H/1 * * * *')   // Check for changes every minute
