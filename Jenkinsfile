@@ -36,8 +36,7 @@ pipeline {
                 echo "Render will automatically deploy after code is pushed."
                
                 // If you are using a Render deploy hook, replace with:
-                // sh "curl -X POST ${RENDER_DEPLOY_HOOK}"
-                // sh 'curl -X POST https://api.render.com/deploy/...
+                sh 'curl -X POST https://gallery-zbc9.onrender.com
             }
         }
     }
