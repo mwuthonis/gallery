@@ -32,11 +32,9 @@ pipeline {
 
         stage('Deploy to Render') {
             steps {
-                // If Render autodeploys on GitHub push:
-                echo "Render will automatically deploy after code is pushed."
-               
-                // If you are using a Render deploy hook, replace with:
-                sh 'curl -X POST https://gallery-zbc9.onrender.com
+                echo "Render will automatically deploy after GitHub push."
+                // If you want to use a deploy hook instead, replace echo with the curl example below:
+                // sh 'curl -X POST "$RENDER_HOOK"'
             }
         }
     }
