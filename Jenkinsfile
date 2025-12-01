@@ -5,6 +5,10 @@ pipeline {
     nodejs "NodeJS"
     }
 
+    triggers {
+        pollSCM('H/1 * * * *')   // Check for changes every minute
+    }
+
     stages {
         stage('Checkout') {
             steps {
