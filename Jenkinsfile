@@ -29,6 +29,13 @@ pipeline {
                 sh 'npm install'
                 sh 'npm test'
             }
+            post {
+                unsuccessful {
+                    mail to: 'muthonishelmith136@gmail.com',
+                         subject: "Jenkins: TESTS FAILED",
+                         body: "Your tests failed on Jenkins. Please check the pipeline logs."
+                }
+            }
         }
 
         stage('Deploy to Render') {
@@ -57,9 +64,7 @@ pipeline {
             echo 'Pipeline completed successfully.'
         }
         failure {
-           mail to: 'muthonishelmith@gmail.com',
-                 subject: "Tests Failed in Jenkins Pipeline",
-                 body: "The test stage failed. Please fix the issues."
+            echo 'Pipeline failed. Please check the logs.'
         }
     }
 }
