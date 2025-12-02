@@ -26,7 +26,8 @@ pipeline {
 
         stage('Test') {
             steps {
-                echo "No tests yet, skipping"
+                sh 'npm install'
+                sh 'npm test'
             }
         }
 
@@ -56,7 +57,9 @@ pipeline {
             echo 'Pipeline completed successfully.'
         }
         failure {
-            echo 'Pipeline failed.'
+           mail to: 'muthonishelmith@gmail.com',
+                 subject: "Tests Failed in Jenkins Pipeline",
+                 body: "The test stage failed. Please fix the issues."
         }
     }
 }
