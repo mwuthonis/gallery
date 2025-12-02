@@ -6,12 +6,6 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'master', url: 'https://github.com/mwuthonis/gallery.git'
-            }
-        }
-
         stage('Install Dependencies') {
             steps {
                 sh 'npm install'
