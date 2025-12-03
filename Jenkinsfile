@@ -44,14 +44,12 @@ pipeline {
 
         stage('Deploy to Render') {
             steps {
-                sh """
-                    curl -X POST "${RENDER_DEPLOY_HOOK}"
-                """
+                sh "curl -X POST '${env.RENDER_DEPLOY_HOOK}'"
             }
             post {
                 success {
                     slackSend(
-                        channel: "#${env.SLACK_CHANNEL}",
+                        channel: "#shelmith_ip1",
                         color: 'good',
                         message: "Deployment to Render was successful!\nBuild ID: ${env.BUILD_ID}\nCheck it out here: ${env.RENDER_URL}",
                         tokenCredentialId: 'slack-webhook-id'
