@@ -6,7 +6,7 @@ pipeline {
     }
 
     triggers {
-        pollSCM('H/1 * * * *')   // Check for changes every minute
+        pollSCM('H/1 * * * *')
     }
 
     stages {
@@ -27,7 +27,7 @@ pipeline {
                 sh 'npm test'
             }
             post {
-                unsuccessful {
+                failure {
                     mail to: 'muthonishelmith136@gmail.com',
                          subject: "Jenkins: TESTS FAILED",
                          body: "Your tests failed on Jenkins. Please check the pipeline logs."
@@ -37,12 +37,9 @@ pipeline {
 
         stage('Deploy to Render') {
             steps {
-                // echo "Render will automatically deploy after GitHub push."
                 sh 'curl -X POST "https://api.render.com/deploy/srv-d4labdshg0os73b5k0gg?key=--4s6glpt8Q"'
-                }
             }
         }
-
     }
 
     post {
@@ -53,3 +50,4 @@ pipeline {
             echo 'Pipeline failed. Please check the logs.'
         }
     }
+}
