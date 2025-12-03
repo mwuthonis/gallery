@@ -43,9 +43,9 @@ pipeline {
 
         stage('Deploy to Render') {
             steps {
-                echo "Render will automatically deploy after GitHub push."
-                // If you want to use a deploy hook instead, replace echo with the curl example below:
-                // sh 'curl -X POST "$RENDER_HOOK"'
+                // echo "Render will automatically deploy after GitHub push."
+                sh 'curl -X POST "https://api.render.com/deploy/srv-d4labdshg0os73b5k0gg?key=--4s6glpt8Q"'
+                }
             }
         }
 
