@@ -8,6 +8,9 @@ pipeline {
     environment {
         SLACK_CHANNEL = 'shelmith_ip1'
         RENDER_URL = 'https://gallery-zbc9.onrender.com/'
+        SLACK_WEBHOOK = credentials('slack-webhook-id')
+        RENDER_DEPLOY_HOOK = credentials('render-deploy-hook')
+    }
     }
 
     triggers {
@@ -42,9 +45,20 @@ pipeline {
 
         stage('Deploy to Render') {
             steps {
-                sh 'curl -X POST "https://api.render.com/deploy/srv-d4labdshg0os73b5k0gg?key=--4s6glpt8Q"'
+                sh 'curl -X POST "$RENDER_DEPLOY_HOOK"'
             }
-        }
+            post {
+                // Slack notification on successful deployment
+                success {
+                    // Notify Slack on successful deployment
+                    slackSend(
+                        channel: "#${env.SLACK_CHANNEL}",
+                        color: 'good',
+                        message: "Deployment to Render was successful!\nBuild ID: ${env.BUILD_ID}\nCheck it out here: ${env.RENDER_URL}",
+                        tokenCredentialId: 'slack-webhook-id' // optional if webhook configured in Jenkins
+        )
+    }
+}
     }
 
     post {
@@ -55,4 +69,5 @@ pipeline {
             echo 'Pipeline failed. Please check the logs.'
         }
     }
+}
 }
