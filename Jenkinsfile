@@ -11,7 +11,7 @@ pipeline {
         SLACK_WEBHOOK = credentials('slack-webhook-id')
         RENDER_DEPLOY_HOOK = credentials('render-deploy-hook')
     }
-    
+
     triggers {
         pollSCM('H/1 * * * *')
     }
@@ -47,17 +47,16 @@ pipeline {
                 sh 'curl -X POST "$RENDER_DEPLOY_HOOK"'
             }
             post {
-                // Slack notification on successful deployment
                 success {
-                    // Notify Slack on successful deployment
                     slackSend(
                         channel: "#${env.SLACK_CHANNEL}",
                         color: 'good',
                         message: "Deployment to Render was successful!\nBuild ID: ${env.BUILD_ID}\nCheck it out here: ${env.RENDER_URL}",
-                        tokenCredentialId: 'slack-webhook-id' // optional if webhook configured in Jenkins
-        )
-    }
-}
+                        tokenCredentialId: 'slack-webhook-id'
+                    )
+                }
+            }
+        }
     }
 
     post {
@@ -68,5 +67,4 @@ pipeline {
             echo 'Pipeline failed. Please check the logs.'
         }
     }
-}
 }
