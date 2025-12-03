@@ -35,10 +35,18 @@ pipeline {
             }
             post {
                 failure {
-                    mail to: 'muthonishelmith136@gmail.com',
-                         subject: "Jenkins: TESTS FAILED",
-                         body: "Your tests failed on Jenkins. Please check the pipeline logs."
-                }
+        emailext(
+            to: 'muthonishelmith136@gmail.com',
+            subject: "❌ Jenkins Tests FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+            body: """
+Hello Shelmith,
+
+Your tests FAILED in Jenkins for the Gallery project.
+
+Check pipeline logs: ${env.BUILD_URL}
+"""
+        )
+    }
             }
         }
 
