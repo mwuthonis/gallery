@@ -49,10 +49,10 @@ pipeline {
             post {
                 success {
                     slackSend(
-                        channel: "#shelmith_ip1",
+                        channel: "#${env.SLACK_CHANNEL}",
                         color: 'good',
                         message: "Deployment to Render was successful!\nBuild ID: ${env.BUILD_ID}\nCheck it out here: ${env.RENDER_URL}",
-                        tokenCredentialId: 'slack-webhook-id'
+                        webhookUrl: "${env.SLACK_WEBHOOK}"
                     )
                 }
             }
