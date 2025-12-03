@@ -5,6 +5,11 @@ pipeline {
         nodejs "node20"
     }
 
+    environment {
+        SLACK_CHANNEL = 'shelmith_ip1'
+        RENDER_URL = 'https://gallery-zbc9.onrender.com/'
+    }
+
     triggers {
         pollSCM('H/1 * * * *')
     }
