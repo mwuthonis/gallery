@@ -11,8 +11,7 @@ pipeline {
         SLACK_WEBHOOK = credentials('slack-webhook-id')
         RENDER_DEPLOY_HOOK = credentials('render-deploy-hook')
     }
-    }
-
+    
     triggers {
         pollSCM('H/1 * * * *')
     }
