@@ -1,12 +1,16 @@
 pipeline {
     agent any
 
+    tools {
+        nodejs "node20"
+    }
+
     triggers {
         pollSCM('H/1 * * * *')   // Check for changes every minute
     }
 
     stages {
-        stage('Checkout') {
+        stage('Checkout and Cloning Repo') {
             steps {
                 checkout scm
             }
@@ -26,7 +30,6 @@ pipeline {
 
         stage('Test') {
             steps {
-                sh 'npm install'
                 sh 'npm test'
             }
             post {
@@ -43,17 +46,6 @@ pipeline {
                 echo "Render will automatically deploy after GitHub push."
                 // If you want to use a deploy hook instead, replace echo with the curl example below:
                 // sh 'curl -X POST "$RENDER_HOOK"'
-            }
-        }
-        stage('Push Changes') {
-            steps {
-                sh """
-                git config --global user.email "muthonishelmith136@gmail.com"
-                git config --global user.name "mwuthonis"
-                git add .
-                git commit -m "Update from Jenkins" || true
-                git push origin master
-                """
             }
         }
 
