@@ -39,14 +39,27 @@ pipeline {
             to: 'muthonishelmith136@gmail.com',
             subject: "❌ Jenkins Tests FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
             body: """
-Hello Shelmith,
+            Hello Shelmith,
 
-Your tests FAILED in Jenkins for the Gallery project.
+            Your tests FAILED in Jenkins for the Gallery project.
 
-Check pipeline logs: ${env.BUILD_URL}
-"""
+            Check pipeline logs: ${env.BUILD_URL}
+            """
         )
-    }
+        }
+        success {
+        emailext(
+            to: 'muthonishelmith136@gmail.com',
+            subject: "✅ Jenkins Tests Passed: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+            body: """
+            Hello Shelmith,
+
+            All tests PASSED successfully in Jenkins for the Gallery project.
+
+            Build details: ${env.BUILD_URL}
+            """
+        )
+      }
             }
         }
 
